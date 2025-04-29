@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CountrySelector } from "@/components/country-select";
 import { NumberPad } from "@/components/number-pad";
 import { formatPhoneNumber, isValidPhoneNumber, unformatPhoneNumber } from "@/utils/phone-number";
+import { toast } from "sonner";
 
 export default function PhonePage() {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -41,7 +42,7 @@ export default function PhonePage() {
       }
 
       // Handle success
-      alert('Successfully joined rewards!');
+      toast.success('Successfully joined rewards!');
       setPhoneNumber(''); // Clear the input after successful submission
     } catch (error) {
       console.error('Error:', error);
@@ -78,14 +79,11 @@ export default function PhonePage() {
         >
           Join Rewards
         </Button>
-
-        {showNumberPad && (
-          <NumberPad
-            value={unformatPhoneNumber(phoneNumber)}
-            onChange={handlePhoneNumberChange}
-            onClose={() => setShowNumberPad(false)}
-          />
-        )}
+        <NumberPad
+          value={unformatPhoneNumber(phoneNumber)}
+          onChange={handlePhoneNumberChange}
+          onClose={() => setShowNumberPad(false)}
+        />
       </div>
     </div>
   );

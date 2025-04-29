@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Loyalty - Whispering Vine Wine Co.",
-  description: "Sign up for the best deasl on wine and spirits.",
+  description: "Sign up for the best deals on wine and spirits.",
 };
 
 export default function RootLayout({
@@ -40,7 +40,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <Toaster position="bottom-right" />
+        <Toaster richColors position="bottom-right" />
       </body>
     </html>
   );

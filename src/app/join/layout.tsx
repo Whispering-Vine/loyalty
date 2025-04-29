@@ -3,6 +3,7 @@
 
 import { ReactNode, useEffect } from "react";
 import Script from "next/script";
+import { toast } from "sonner";
 
 export default function JoinLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -10,7 +11,10 @@ export default function JoinLayout({ children }: { children: ReactNode }) {
       // tell TS/ESLint we know what we're doing here:
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const api = (window as any).korona_plugin_api;
-      if (!api) return;
+      if (!api) {
+        toast.error("Could not load Korona POS plugin. Rewards join will not work.");
+        return;
+      }
 
       api.ready(() => {
         const btn = document.querySelector<HTMLButtonElement>(
@@ -46,6 +50,7 @@ export default function JoinLayout({ children }: { children: ReactNode }) {
               api.backToKorona();
             } catch (e) {
               console.error("Error attaching to Korona:", e);
+              toast.error("Failed to attach customer to Korona POS.");
             }
           },
           { once: true }
