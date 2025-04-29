@@ -71,8 +71,25 @@ export default function JoinPage() {
           : `Welcome back ${firstName}!`
       );
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const api = (window as any).korona_plugin_api;
+      // Define a type for korona_plugin_api
+      interface KoronaPluginApi {
+        response: {
+          setReceiptCustomer: (data: {
+            firstName: string;
+            lastName: string;
+            phone: string;
+            email: string;
+            number: string;
+          }) => void;
+          callExternalSystemByNumber: (data: { externalSystemNumber: number }) => void;
+        };
+        backToKorona: () => void;
+        request: {
+          FollowUpExternalSystemCall: number;
+        };
+      }
+
+      const api = (window as { korona_plugin_api?: KoronaPluginApi }).korona_plugin_api;
       if (api) {
         api.response.setReceiptCustomer({
           firstName: firstName || '',
@@ -81,6 +98,13 @@ export default function JoinPage() {
           email:     email     || '',
           number:    String(id),
         });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const followUp = api.request?.FollowUpExternalSystemCall;
+        if (typeof followUp === 'number') {
+          api.response.callExternalSystemByNumber({
+            externalSystemNumber: followUp
+          });
+        }
         api.backToKorona();
       } else {
         toast.error('Korona API not available');
