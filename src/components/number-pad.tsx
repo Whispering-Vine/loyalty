@@ -31,7 +31,7 @@ export function NumberPad({ value, onChange, }: NumberPadProps) {
   ];
 
   return (
-    <div className="w-full bg-muted/20 rounded-2xl pt-4">
+    <div className="w-full rounded-2xl pt-4">
         <div className="grid grid-cols-3 gap-3">
           {numbers.map((row, i) => (
             <React.Fragment key={i}>

@@ -69,10 +69,12 @@ export default function PhonePage() {
         </div>
 
         <Button 
+          data-join-rewards
           className="w-full"
           onClick={handleJoinRewards}
           variant="default"
           disabled={!isValidPhoneNumber(unformatPhoneNumber(phoneNumber))}
+          size={'lg'}
         >
           Join Rewards
         </Button>
