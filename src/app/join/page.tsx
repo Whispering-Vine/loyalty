@@ -11,7 +11,7 @@ import { toast } from "sonner";
 export default function PhonePage() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countryCode, setCountryCode] = useState('+1'); // US by default
-  const [showNumberPad, setShowNumberPad] = useState(false);
+  const [showNumberPad, setShowNumberPad] = useState(true);
 
   const handlePhoneNumberChange = (value: string) => {
     const unformatted = unformatPhoneNumber(value);
@@ -79,11 +79,14 @@ export default function PhonePage() {
         >
           Join Rewards
         </Button>
-        <NumberPad
-          value={unformatPhoneNumber(phoneNumber)}
-          onChange={handlePhoneNumberChange}
-          onClose={() => setShowNumberPad(false)}
-        />
+
+        {showNumberPad && (
+          <NumberPad
+            value={unformatPhoneNumber(phoneNumber)}
+            onChange={handlePhoneNumberChange}
+            onClose={() => setShowNumberPad(false)}
+          />
+        )}
       </div>
     </div>
   );
