@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { getGeolocation } from "@/utils/get-geolocation";
 import { type NextRequest, NextResponse } from "next/server";
 

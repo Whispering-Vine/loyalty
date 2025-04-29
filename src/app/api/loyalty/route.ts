@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 // app/api/loyalty/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 

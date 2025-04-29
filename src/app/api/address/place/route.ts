@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { AddressType } from "@/components/ui/address-autocomplete";
 import { type NextRequest, NextResponse } from "next/server";
 
