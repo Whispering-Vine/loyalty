@@ -17,6 +17,8 @@ export default function JoinPage() {
   const [countryCode, setCountryCode] = useState('+1');
   const [showNumberPad, setShowNumberPad] = useState(true);
 
+  const [koronaReady, setKoronaReady] = useState(false);
+
   // 1) Inject Korona plugin script
   useEffect(() => {
     const originalWarn = console.warn;
@@ -31,6 +33,7 @@ export default function JoinPage() {
       toast.success("Korona POS plugin loaded");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).korona_plugin_api?.ready(() => {
+        setKoronaReady(true);    
         toast.success("Korona POS API ready");
       });
     };
@@ -90,13 +93,13 @@ export default function JoinPage() {
       }
 
       const api = (window as { korona_plugin_api?: KoronaPluginApi }).korona_plugin_api;
-      if (api) {
+      if (api && koronaReady) {
         api.response.setReceiptCustomer({
           firstName: firstName || '',
           lastName:  lastName  || '',
           phone:     phone     || '',
           email:     email     || '',
-          number:    String(id),
+          number:    id.toString(),
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const followUp = api.request?.FollowUpExternalSystemCall;
